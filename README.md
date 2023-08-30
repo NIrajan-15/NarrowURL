@@ -1,2 +1,2 @@
-# JobApp
-Simple Application to Make Jobs Search Easy.
+# NarrowURL
+Simple Application to Reduce your URL length.
