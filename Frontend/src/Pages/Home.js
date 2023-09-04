@@ -5,7 +5,7 @@ const Home = () =>
 {
     const boxStyle = {
         height: '100vh',
-        background: 'linear-gradient(to bottom, white 40%, lightgray 60%)',
+       
       };
     return(
         <>

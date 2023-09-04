@@ -32,7 +32,7 @@ const Device = () => {
   return (
     <>
       <Paper elevation={0}>
-        <Grid p={1} paddingTop={{xs:10, sm:10, md:7, lg:5 }} paddingBottom={{xs:5,sm:10, md:5, lg:1}} container spacing={2} justifyContent={'center'}>
+        <Grid p={1} paddingTop={{xs:10, sm:5, md:7, lg:3 }} paddingBottom={{xs:5,sm:3, md:5, lg:0}} container spacing={2} justifyContent={'center'}>
           {DeviceData.map((device, index) => (
             <Grid key={index} item xs={4} marginTop={'-1vh'} sx={{borderStyle:'inset',borderWidth:'0.05px'}}>
               <Typography textAlign={'center'}>
