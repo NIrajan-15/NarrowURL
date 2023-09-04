@@ -7,13 +7,15 @@ import ProtectedRoute from './Components/Authentication/ProtectedRoute';
 import Navigation from './Components/Nav/NavBlock';
 import { AuthProvider } from './Components/Authentication/Auth';
 import React from 'react';
-
-
+import { Box } from '@mui/material';
+import SessionManager from './Components/SessionsManager';
 function App() {
 
   return (
 
     <>
+        <Box  sx={{ backgroundColor: 'white'}}>
+        <SessionManager />
         <AuthProvider>
         <Routes>
           <Route  path="/signup" element={<LandingPage />} />
@@ -26,9 +28,9 @@ function App() {
           element={<ProtectedRoute component={Stats} nav={Navigation} />}
           />
           
-          
         </Routes>
         </AuthProvider>
+        </Box>
         
       
     </>
