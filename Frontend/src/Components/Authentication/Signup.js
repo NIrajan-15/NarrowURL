@@ -3,7 +3,7 @@ import { Button, ButtonGroup, Typography, Grid, Paper, TextField } from '@mui/ma
 import { Box } from '@mui/system';
 import app from '../../Firebase/Firebase'; // Import your Firebase configuration
 import { useNavigate } from 'react-router-dom';
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth';
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfile } from 'firebase/auth';
 
 function Signup() {
     // State to manage form data
@@ -73,9 +73,15 @@ function Signup() {
 
             // signup user with email and password
             await createUserWithEmailAndPassword(auth, formData.email, formData.password)
-                .then((userCredential) => {
+                .then(async (userCredential) => {
                     // Signed up
+                    const user = userCredential.user;
+                    await updateProfile(user, {
+                        displayName: formData.username
+                    });
+
                     localStorage.setItem('currentUser', JSON.stringify(userCredential.user.currentUser)); 
+
                     navigate('/');
                 })
                 .catch((error) => {

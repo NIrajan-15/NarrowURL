@@ -9,6 +9,8 @@ import { AuthProvider } from './Components/Authentication/Auth';
 import React from 'react';
 import { Box } from '@mui/material';
 import SessionManager from './Components/SessionsManager';
+import Profile from './Pages/profile';
+
 function App() {
 
   return (
@@ -26,6 +28,9 @@ function App() {
           <Route 
           path="/stats"
           element={<ProtectedRoute component={Stats} nav={Navigation} />}
+          />
+          <Route path='/profile' 
+          element={<ProtectedRoute component={Profile} nav={Navigation} />}
           />
           
         </Routes>

@@ -1,100 +1,139 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import {
-    Toolbar, Typography, IconButton,
-    Grid, Avatar, Menu, MenuItem, Box
+    Toolbar, Typography, IconButton, Button,
+    Grid, Avatar, Menu, MenuItem, Drawer, Box, Paper
 } from '@mui/material';
 import HomeIcon from '@mui/icons-material/Home';
 import BarChartIcon from '@mui/icons-material/BarChart';
+import MenuIcon from '@mui/icons-material/Menu'; // Import the MenuIcon
 import { Link, useNavigate } from 'react-router-dom';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { getAuth, signOut } from "@firebase/auth";
-
+import LinkIcon from '@mui/icons-material/Link';
+import { AuthContext } from '../Authentication/Auth';
 
 const Navigation = () => {
-
     const [anchorEl, setAnchorEl] = useState(null);
+    const [drawerOpen, setDrawerOpen] = useState(false);
 
-    // Handle click on the avatar icon
+    // Handle click on user avatar
     const handleAvatarClick = (event) => {
         setAnchorEl(event.currentTarget);
     };
 
-    // Handle menu close
-    const handleClose = () => {
-        setAnchorEl(null);
-    };
-
-    const auth = getAuth(); // Get Firebase authentication instance
+    // Initialize React Router's navigation hook
     const navigate = useNavigate();
 
-    // Function to log out the user
+    // Close the user menu
+    const handleClose = () => {
+        setAnchorEl(null);
+        navigate('/profile');
+    };
+
+    // Toggle the side drawer
+    const toggleDrawer = (open) => (event) => {
+        if (
+            event.type === 'keydown' &&
+            (event.key === 'Tab' || event.key === 'Shift')
+        ) {
+            return;
+        }
+        setDrawerOpen(open);
+    };
+
+    const auth = getAuth();
+
+    // Handle user logout
     const logout = async () => {
         await signOut(auth).then(() => {
             console.log("Logged out");
-            localStorage.clear(); // Remove user data from local storage
-            navigate('/signup'); // Navigate to the signup page after logout
+            localStorage.clear();
+            navigate('/signup');
         });
     }
 
-    const tabStyle = {
-        color: 'black',
-        boxShadow: '0px 3px 6px rgba(0, 0, 0, 0.0)',
-        borderRadius: '8px',
-        border: '1px solid #E0E0E0',
-        padding: '8px',
-        fontFamily: 'ubuntu',
-    }
+    // Access user data from AuthContext
+    const { currentUser } = useContext(AuthContext);
 
+    // Content for the side drawer
+    const drawerContent = (
+        <Box sx={{ width: 300 }} justifyContent={'center'}>
+            <Toolbar style={{ borderRadius: '0', backgroundColor: 'white' }}>
+                <Typography textAlign={'center'} variant="h6">NarrowURL</Typography>
+            </Toolbar>
+            <Box marginTop='40%'>
+                <Link to="/" onClick={toggleDrawer(true)} style={{ textDecoration: 'none', color: 'black' }}>
+                    <MenuItem>
+                        <Typography width='100%' textAlign={'center'} >
+                            <HomeIcon sx={{ marginRight: '1vw' }} />
+                            Home
+                        </Typography>
+                    </MenuItem>
+                </Link>
+                <Link to="/stats" onClick={toggleDrawer(true)} style={{ textDecoration: 'none', color: 'black' }}>
+                    <MenuItem>
+                        <Typography width='100%' textAlign={'center'} >
+                            <BarChartIcon sx={{ marginRight: '1vw' }} />
+                            Stats
+                        </Typography>
+                    </MenuItem>
+                </Link>
+            </Box>
+        </Box>
+    );
 
     return (
         <>
-            {/* App navigation bar */}
-            <Box position="fixed"  sx={{backgroundColor:'white', color:'black', width:'100vw'}}>
-                <Toolbar style={{  borderRadius:'0' }}>
-                    {/* Grid container for navigation elements */}
-                    <Grid container justifyContent="center" alignItems="center">
-                        {/* App Name */}
-                        <Grid item xs={2} sm={4} lg={5}>
-                            <Typography variant="h6">
-                                NarrowURL
-                            </Typography>
+            <Box position="fixed" sx={{ backgroundColor: '#f2f2f0', color: 'black', width: '100vw', zIndex: '99' }}>
+                <Toolbar style={{ borderRadius: '0' }}>
+                    <Grid container justifyContent="space-between" alignItems="center">
+                        {currentUser && (
+                            <Grid item xs={1}>
+                                <IconButton onClick={toggleDrawer(true)} style={{ marginLeft: 'auto' }}>
+                                    <MenuIcon />
+                                </IconButton>
+                            </Grid>
+                        )}
+                        <Grid item xs={9}>
+                            <Typography variant="h6" style={{ textAlign: 'center' }}>NarrowURL</Typography>
                         </Grid>
-                        {/* Avatar icon and user menu */}
-                        
-                        {/* Home icon and link */}
-                        <Grid item xs={4.5} sm={2.5} lg={2} paddingTop={{xs:13, sm:10}}>
-                            <IconButton component={Link} to="/"style={tabStyle}>
-                                <HomeIcon />Home
-                            </IconButton>
-                        </Grid>
-                        {/* Stats icon and link */}
-                        <Grid item xs={4.5} sm={1.5} lg={2} paddingTop={{xs:13, sm:10}}>
-                            <IconButton component={Link} to="/stats" style={tabStyle}>
-                                <BarChartIcon /> Stats
-                            </IconButton>
-                        </Grid>
-                        
-                        <Grid item xs={1} sm={3} style={{ display: 'flex', justifyContent: 'flex-end' }}>
-                            <IconButton onClick={handleAvatarClick}>
-                                <Avatar>
-                                    <AccountCircleIcon />
-                                </Avatar>
-                            </IconButton>
-                            {/* User menu */}
-                            <Menu
-                                anchorEl={anchorEl}
-                                keepMounted
-                                open={Boolean(anchorEl)}
-                                onClose={handleClose}
-                            >
-                                {/* Menu items */}
-                                <MenuItem onClick={handleClose}>Profile</MenuItem>
-                                <MenuItem onClick={logout}>Logout</MenuItem>
-                            </Menu>
-                        </Grid>
+                        {currentUser ? (
+                            <Grid item xs={2} sm={1}>
+                                <IconButton onClick={handleAvatarClick}>
+                                    <Avatar>
+                                        <AccountCircleIcon />
+                                    </Avatar>
+                                </IconButton>
+                                <Menu
+                                    anchorEl={anchorEl}
+                                    keepMounted
+                                    open={Boolean(anchorEl)}
+                                    onClose={handleClose}
+                                >
+                                    <MenuItem onClick={handleClose}>Profile</MenuItem>
+                                    <MenuItem onClick={logout}>Logout</MenuItem>
+                                </Menu>
+                            </Grid>
+                        ) : (
+                            <Grid item xs={2}>
+                                <Button
+                                    fullWidth
+                                    style={{ borderRadius: 16, marginTop: '1vh' }}
+                                >
+                                    Login / Signup
+                                </Button>
+                            </Grid>
+                        )}
                     </Grid>
                 </Toolbar>
             </Box>
+            <Drawer
+                anchor="left"
+                open={drawerOpen}
+                onClose={toggleDrawer(false)}
+            >
+                {drawerContent}
+            </Drawer>
             <Grid container>
                 {/* You can add more content here if needed */}
             </Grid>
