@@ -141,7 +141,7 @@ const StatsFilter = ({ children }) => {
           
             {screenSize >= 600 ? ( // Render buttons for screens wider than or equal to 600px
               dateOptions.map((duration, index) => (
-                <Grid item xs={5} sm={4} md={1.5} lg={1} textAlign={'center'}>
+                <Grid key={index} item xs={5} sm={1.5} md={1.5} lg={1} textAlign={'center'}>
                 <Button
                   key={index}
                   variant={activeButton === duration ? 'contained' : 'outlined'}
@@ -158,7 +158,7 @@ const StatsFilter = ({ children }) => {
                 </Grid>
               ))
             ) : ( // Render Select component for screens narrower than 600px
-              <Grid item xs={5} sm={4} md={3} lg={2} textAlign={'center'}>
+              <Grid item xs={5} sm={2}  md={3} lg={2} textAlign={'center'}>
               <FormControl fullWidth>
                 <InputLabel id="select-time-label">Select Time</InputLabel>
                 <Select

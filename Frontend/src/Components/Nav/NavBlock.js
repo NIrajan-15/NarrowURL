@@ -87,43 +87,42 @@ const Navigation = () => {
             <Box position="fixed" sx={{ backgroundColor: '#f2f2f0', color: 'black', width: '100vw', zIndex: '99' }}>
                 <Toolbar style={{ borderRadius: '0' }}>
                     <Grid container justifyContent="space-between" alignItems="center">
+                        
+                        <Grid item xs={1}>
                         {currentUser && (
-                            <Grid item xs={1}>
-                                <IconButton onClick={toggleDrawer(true)} style={{ marginLeft: 'auto' }}>
-                                    <MenuIcon />
-                                </IconButton>
-                            </Grid>
+                            <>
+                            <IconButton onClick={toggleDrawer(true)} style={{ marginLeft: 'auto' }}>
+                                <MenuIcon />
+                            </IconButton>
+                            </>
                         )}
+                        </Grid>
+                        
                         <Grid item xs={9}>
                             <Typography variant="h6" style={{ textAlign: 'center' }}>NarrowURL</Typography>
                         </Grid>
-                        {currentUser ? (
-                            <Grid item xs={2} sm={1}>
-                                <IconButton onClick={handleAvatarClick}>
-                                    <Avatar>
-                                        <AccountCircleIcon />
-                                    </Avatar>
-                                </IconButton>
-                                <Menu
-                                    anchorEl={anchorEl}
-                                    keepMounted
-                                    open={Boolean(anchorEl)}
-                                    onClose={handleClose}
-                                >
-                                    <MenuItem onClick={handleClose}>Profile</MenuItem>
-                                    <MenuItem onClick={logout}>Logout</MenuItem>
-                                </Menu>
-                            </Grid>
-                        ) : (
-                            <Grid item xs={2}>
-                                <Button
-                                    fullWidth
-                                    style={{ borderRadius: 16, marginTop: '1vh' }}
-                                >
-                                    Login / Signup
-                                </Button>
-                            </Grid>
-                        )}
+                        
+                        <Grid item xs={2} sm={1}>
+                        {currentUser && (
+                            <>
+                            <IconButton onClick={handleAvatarClick}>
+                                <Avatar>
+                                    <AccountCircleIcon />
+                                </Avatar>
+                            </IconButton>
+                            <Menu
+                                anchorEl={anchorEl}
+                                keepMounted
+                                open={Boolean(anchorEl)}
+                                onClose={handleClose}
+                            >
+                                <MenuItem onClick={handleClose}>Profile</MenuItem>
+                                <MenuItem onClick={logout}>Logout</MenuItem>
+                            </Menu>
+                            </>
+                            )}
+                        </Grid>
+                        
                     </Grid>
                 </Toolbar>
             </Box>
