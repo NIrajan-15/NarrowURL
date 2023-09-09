@@ -4,8 +4,6 @@ import { AuthContext } from '../Authentication/Auth';
 import DoneOutlineIcon from '@mui/icons-material/DoneOutline';
 import ErrorIcon from '@mui/icons-material/Error';
 import validator from 'validator';
-import ContentCopyIcon from '@mui/icons-material/ContentCopy';
-import QRCode from 'qrcode.react'; // Import QRCode component
 import UrlResult from './UrlResult';
 
 const UrlForm = () => {
@@ -19,6 +17,7 @@ const UrlForm = () => {
   const [validUrl, setValidUrl] = useState(true);
   const [shortlink, setShortlink] = useState('');
   const [isCopied, setIsCopied] = useState(false);
+  const[error, setError] = useState(true);
 
   // Function to handle URL validation
   const handleValidate = (url) => {
@@ -33,10 +32,10 @@ const UrlForm = () => {
       setValidUrl(false);
       return;
     }
-
     // URL is valid; set the flag
     setValidUrl(true);
     setMessage('Valid');
+    setError(false);
 
     // If the URL doesn't start with 'https://', add it
     if (!url.startsWith('https://')) {
@@ -59,12 +58,6 @@ const UrlForm = () => {
     setMessage('');
   };
 
-  // Function to copy the shortlink to the clipboard
-  const handleCopyToClipboard = () => {
-    navigator.clipboard.writeText(shortlink); // Copy the shortlink to the clipboard
-    setIsCopied(true); // Set copied state to true
-  };
-
   const renderShortlinkSection = () => {
     if (!shortlink) return null;
 
@@ -72,10 +65,11 @@ const UrlForm = () => {
   };
 
   return (
-    <Paper elevation={1} style={{ padding: '2%', width: '80%', maxWidth: '800px', marginTop: shortlink ? '100px' : '0' }}>
+    <Paper elevation={1} style={{ padding: '2%', width: '95%', maxWidth: '800px' }}>
       <Grid container spacing={2} justifyContent="center" alignItems="center">
-        {currentUser && (
-          <Grid item xs={12}>
+    
+      <Grid item xs={12}>
+          {currentUser && (
             <TextField
               id="outlined-basic"
               label="Enter a name for your URL"
@@ -83,12 +77,13 @@ const UrlForm = () => {
               fullWidth
               onChange={(e) => setUrlName(e.target.value)}
             />
+            )}
           </Grid>
-        )}
+
         <Grid item xs={12}>
           <TextField
             id="outlined-basic"
-            label="Enter the URL here"
+            label="Enter your Link here"
             variant="outlined"
             fullWidth
             onChange={(e) => handleValidate(e.target.value)}
@@ -108,7 +103,7 @@ const UrlForm = () => {
         {renderShortlinkSection()}
         <Grid item xs={12} md={6}>
           {!shortlink && (
-            <Button variant="contained" type="submit" fullWidth onClick={handleSubmit}>
+            <Button variant="contained" type="submit" disabled={error} fullWidth onClick={handleSubmit}>
               Narrow URL
             </Button>
           )}

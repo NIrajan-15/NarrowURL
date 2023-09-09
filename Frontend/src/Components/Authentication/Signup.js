@@ -95,7 +95,7 @@ function Signup() {
         // JSX for the signup form
         <>
             {/* Grid container for the signup form */}
-            <Grid container paddingTop={{ xs: '50%', md: '25%', lg: '10%' }} style={{  justifyContent: "center", alignItems: 'center' }}>
+            <Grid container paddingTop='20%' style={{  justifyContent: "center", alignItems: 'center' }}>
 
                 
 
