@@ -34,7 +34,7 @@ const navigate = useNavigate();
         localStorage.clear();
         navigate('/signup');
       }
-    }, 60000); // Check every minute
+    }, 30000); // Check every half minute
 
     // Clean up the timer when the component unmounts
     return () => clearInterval(sessionCheckInterval);

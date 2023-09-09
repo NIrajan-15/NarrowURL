@@ -3,13 +3,17 @@ import UrlForm from '../Components/Home/UrlForm';
 import {Box} from '@mui/material';
 const Home = () =>
 {
-    const boxStyle = {
-        height: '100vh',
-       
-      };
+    
     return(
         <>
-        <Box style={boxStyle}>
+        <Box
+        sx={{
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            height: '80vh',
+        }}
+    >
         <UrlForm />
         </Box>
             
