@@ -3,12 +3,10 @@ version: 0.2
 phases:
   install:
     commands:
-      - cd Frontend
       - echo "Installing dependencies..."
       - npm install
   build:
     commands:
-      - cd Frontend
       - echo "Building the app..."
       - npm run build
   
