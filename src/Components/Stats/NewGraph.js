@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import {  Box, Paper, Typography } from '@mui/material';
 import ReactApexChart from 'react-apexcharts';
 import { useStats } from './Filter';

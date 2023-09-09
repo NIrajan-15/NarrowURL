@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
 import app from '../../Firebase/Firebase.js';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
-import StatsFilter from '../Stats/Filter.js';
 
 const FullData = [
   {
@@ -125,7 +124,7 @@ export function AuthProvider({ children }) {
                 localStorage.removeItem('currentUser');
             }
         });
-    }, []);
+    }, [auth]);
 
     // Provide the authentication context to child components
     return (

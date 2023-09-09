@@ -1,7 +1,7 @@
 import React, { useState, useContext } from 'react';
 import {
-    Toolbar, Typography, IconButton, Button,
-    Grid, Avatar, Menu, MenuItem, Drawer, Box, Paper
+    Toolbar, Typography, IconButton,
+    Grid, Avatar, Menu, MenuItem, Drawer, Box
 } from '@mui/material';
 import HomeIcon from '@mui/icons-material/Home';
 import BarChartIcon from '@mui/icons-material/BarChart';
@@ -9,7 +9,6 @@ import MenuIcon from '@mui/icons-material/Menu'; // Import the MenuIcon
 import { Link, useNavigate } from 'react-router-dom';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { getAuth, signOut } from "@firebase/auth";
-import LinkIcon from '@mui/icons-material/Link';
 import { AuthContext } from '../Authentication/Auth';
 
 const Navigation = () => {

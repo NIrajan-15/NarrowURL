@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react';
-import { Box, Paper, Grid, TextField, Button, Typography } from '@mui/material';
+import {  Paper, Grid, TextField, Button, Typography } from '@mui/material';
 import { AuthContext } from '../Authentication/Auth';
 import DoneOutlineIcon from '@mui/icons-material/DoneOutline';
 import ErrorIcon from '@mui/icons-material/Error';
@@ -22,7 +22,7 @@ const UrlForm = () => {
   // Function to handle URL validation
   const handleValidate = (url) => {
     setMessage(''); // Clear any previous messages
-
+    setInputUrl(url); // Set the input URL
     // If the URL is empty, exit validation
     if (url.length === 0) return;
 

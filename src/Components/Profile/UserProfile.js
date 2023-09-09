@@ -1,5 +1,5 @@
-import React, { useState, useContext } from 'react';
-import { Paper, Typography, Avatar, Button, Container } from '@mui/material';
+import React, { useContext } from 'react';
+import { Paper, Typography, Avatar, Container } from '@mui/material';
 import { AuthContext } from '../Authentication/Auth';
 
 const UserProfile = () => {
