@@ -1,0 +1,17 @@
+version: 0.2
+
+phases:
+  install:
+    commands:
+      - echo "Installing dependencies..."
+      - npm install
+  build:
+    commands:
+      - echo "Building the app..."
+      - npm run build
+  
+artifacts:
+  files:
+    - '**/*'
+  discard-paths: no
+  base-directory: build
