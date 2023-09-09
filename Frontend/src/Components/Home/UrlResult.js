@@ -19,7 +19,7 @@ const UrlResult = ({shortlink}) => {
           <Typography sx={{ width: '95%', font: 'roboto' }} variant="h6" textAlign="center" p={2}>
             Your Narrow URL is ready
           </Typography>
-          <Typography variant="h6" sx={{ borderStyle: 'inset', width: '90%' }} textAlign="center" p={2}>
+          <Typography variant="h6" sx={{ borderStyle: 'inset', width: '95%' }} textAlign="center" p={2}>
             {shortlink}
             <Button
               variant="outlined"
