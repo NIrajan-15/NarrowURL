@@ -63,7 +63,23 @@ function Signup() {
                     navigate('/');
                 })
                 .catch((error) => {
-                    setMessage(error.message);
+                    switch (error.code) {
+                        case 'auth/invalid-email':
+                            setMessage('Invalid email address.');
+                            break;
+                        case 'auth/user-disabled':
+                            setMessage('User with this email has been disabled.');
+                            break;
+                        case 'auth/user-not-found':
+                            setMessage('User with this email does not exist.');
+                            break;
+                        case 'auth/wrong-password':
+                            setMessage('Invalid password.');
+                            break;
+                        default:
+                            setMessage('An error occurred while logging in.');
+                            break;
+                    }
                 }); 
         } else {
             if (formData.password !== formData.confirmPassword) {
@@ -85,8 +101,20 @@ function Signup() {
                     navigate('/');
                 })
                 .catch((error) => {
-                    console.log(error);
-                    setMessage(error.message);
+                    switch (error.code) {
+                        case 'auth/email-already-in-use':
+                          setMessage('Email address is already in use.');
+                          break;
+                        case 'auth/invalid-email':
+                          setMessage('Invalid email address.');
+                          break;
+                        case 'auth/weak-password':
+                          setMessage('Password should be at least 6 characters long.');
+                          break;
+                        default:
+                          setMessage('An error occurred while signing up.');
+                          break;
+                      }
                 });   
         }
     }
@@ -95,7 +123,7 @@ function Signup() {
         // JSX for the signup form
         <>
             {/* Grid container for the signup form */}
-            <Grid container paddingTop='20%' style={{  justifyContent: "center", alignItems: 'center' }}>
+            <Grid container paddingTop={{xs:'20%', lg:'8%'}} style={{  justifyContent: "center", alignItems: 'center' }}>
 
                 
 
@@ -127,6 +155,7 @@ function Signup() {
                                             label="&#128100;  Username"
                                             type="username"
                                             variant="outlined"
+                                            required
                                             fullWidth
                                             value={formData.username}
                                             onChange={(e) => setFromData({ ...formData, username: e.target.value })}
@@ -142,6 +171,7 @@ function Signup() {
                                     type="email"
                                     variant="outlined"
                                     fullWidth
+                                    required
                                     value={formData.email}
                                     onChange={(e) => setFromData({ ...formData, email: e.target.value })}
                                     margin="normal"
@@ -153,6 +183,7 @@ function Signup() {
                                     type="password"
                                     variant="outlined"
                                     fullWidth
+                                    required
                                     value={formData.password}
                                     onChange={(e) => setFromData({ ...formData, password: e.target.value })}
                                     margin="normal"
@@ -166,6 +197,7 @@ function Signup() {
                                         type="password"
                                         variant="outlined"
                                         fullWidth
+                                        required
                                         value={formData.confirmPassword}
                                         onChange={(e) => setFromData({ ...formData, confirmPassword: e.target.value })}
                                         margin="normal"
