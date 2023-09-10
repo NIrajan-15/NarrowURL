@@ -123,12 +123,12 @@ function Signup() {
         // JSX for the signup form
         <>
             {/* Grid container for the signup form */}
-            <Grid container paddingTop={{xs:'20%', lg:'8%'}} style={{  justifyContent: "center", alignItems: 'center' }}>
+            <Grid container paddingTop={{xs:'20%', lg:'5%'}} style={{  justifyContent: "center", alignItems: 'center' }}>
 
                 
 
                 {/* Main grid item containing the form */}
-                <Grid item xs={12} sm={10} md={6} lg={4}>
+                <Grid item xs={12} sm={10}  lg={3}>
                     <Paper style={{ minHeight: '60%' }}>
 
                         {/* Button group for toggling between login and signup */}
@@ -212,7 +212,7 @@ function Signup() {
                                 </Typography>
 
                                 {/* Submit button */}
-                                <Button type="submit" variant="contained" size="large" style={{ width: '40%', marginLeft: '30%' }}>
+                                <Button type="submit" variant="contained" style={{ width: '40%', marginLeft: '30%' }}>
                                     {isSignup ? "Signup" : "Login"}
                                 </Button>
 

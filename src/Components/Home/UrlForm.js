@@ -65,7 +65,7 @@ const UrlForm = () => {
   };
 
   return (
-    <Paper elevation={1} style={{ padding: '2%', width: '95%', maxWidth: '760px' }}>
+    <Paper elevation={1} style={{ padding: '2%', width:'80%',maxWidth: '760px' }}>
       <Grid container spacing={2} justifyContent="center" alignItems="center">
     
       <Grid item xs={12}>

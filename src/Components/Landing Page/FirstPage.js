@@ -10,7 +10,7 @@ const FirstPage = () => {
   return (
     <Container>
       <Grid container justifyContent={'center'}>
-        <Grid item xs={12} sm={10} md={10} lg={12}>
+        <Grid item xs={12}>
           <Paper elevation={0} sx={{ paddingBottom: '10vh', borderRadius: '0px' }}>
             <Box sx={{ display: 'flex', justifyContent: 'center' }}>
               <UrlForm />

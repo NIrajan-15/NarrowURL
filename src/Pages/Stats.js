@@ -12,16 +12,16 @@ const Stats = () => {
         
         <Grid justifyContent='center' minHeight='100vh' container spacing={1} padding={2} marginTop={'5vh'} >
         <StatsFilter>
-        <Grid item xs={12} sm={12} md={10} lg={8.1}>
+        <Grid item xs={12} sm={11} md={10} lg={8.1}>
             <AccountStats />
         </Grid>
-        <Grid item xs={12} sm={12} md={10} lg={8.1}>
+        <Grid item xs={12} sm={11} md={10} lg={8.1}>
             <Device />
         </Grid>
-        <Grid item  xs={12} sm={12} md={10} lg={4} >
+        <Grid item  xs={12} sm={11} md={10} lg={4.1} >
             <AreaGraph />
         </Grid>
-        <Grid item xs={12} sm={12} md={10} lg={4}>
+        <Grid item xs={12} sm={11} md={10} lg={4.1}>
             <MapChart />
         </Grid>
         </StatsFilter>

@@ -6,21 +6,14 @@ import Stats from './Pages/Stats';
 import ProtectedRoute from './Components/Authentication/ProtectedRoute';
 import Navigation from './Components/Nav/NavBlock';
 import { AuthProvider } from './Components/Authentication/Auth';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Box } from '@mui/material';
 import SessionManager from './Components/SessionsManager';
 import Profile from './Pages/profile';
 
 function App() {
-  if(document)
-    {
-      document.body.style.zoom = "75%";
-    }
-
+  
   return (
-
-    
-
     <>
         <Box  sx={{ backgroundColor: 'white'}}>
         <SessionManager />

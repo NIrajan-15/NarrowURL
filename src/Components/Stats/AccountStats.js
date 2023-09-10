@@ -28,13 +28,13 @@ const AccountStats = () => {
 
     return (
         <Box>
-        <Grid container spacing={1} marginTop={{xs:'3vh',lg:'0'}} justifyContent="center" marginBottom={{xs:2, sm:2, md:2, lg:0}} alignItems="center">
+        <Grid container spacing={1} marginTop={{xs:'3vh'}} justifyContent="center" marginBottom={{xs:2, sm:2, md:2}} alignItems="center">
             {/* Total URLs Section */}
             {fields.map((field, index) => (
                 <Grid item xs={6} sm={3} md={3} lg={3} key={index}>
                 <Paper elevation={3} style={{ padding: '1rem',  height:'50px' }}>
                     <Box textAlign="center">
-                    <Typography fontSize="2vh" style={{ color: '#000000' }} gutterBottom>
+                    <Typography fontSize="2vh" style={{ color: '#000000' }}>
                             {values[index]}
                         </Typography>
                         <Typography  gutterBottom style={{ color: '#777777' }}>

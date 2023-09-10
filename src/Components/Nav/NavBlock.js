@@ -83,7 +83,7 @@ const Navigation = () => {
 
     return (
         <>
-            <Box position="fixed" sx={{ backgroundColor: '#f2f2f0', color: 'black', width: '100vw', zIndex: '99' }}>
+            <Box position="fixed" sx={{ backgroundColor: '#f2f2f0', color: 'black', width: '100%', zIndex: '99' }}>
                 <Toolbar style={{ borderRadius: '0' }}>
                     <Grid container justifyContent="space-between" alignItems="center">
                         
