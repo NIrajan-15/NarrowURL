@@ -3,8 +3,7 @@ version: 0.2
 phases:
   install:
     runtime-versions:
-      nodejs: 18 
-  pre_build:
+      nodejs: 18
     commands:
       - echo "Installing dependencies..."
       - npm install
@@ -12,14 +11,10 @@ phases:
     commands:
       - echo "Building the app..."
       - npm run build
-  post_build:
-    commands:
-      # Create a ZIP archive of the build files
-      - zip -r app.zip build/*
-
+  
 artifacts:
-  files: app.zip
-
-cache:
-  paths:
-    - node_modules/
+  type: zip
+  files:
+    - '**/*'
+  discard-paths: no
+  base-directory: build
