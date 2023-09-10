@@ -35,7 +35,7 @@ const LandingPage = () => {
             <Grid item sm={12} lg={12} sx={{paddingTop:'10vh',display:'flex', alignContent:'center', justifyContent:'center'}}>
             <FirstPage />
             </Grid>
-            <Grid item xs={8} sm={3}>
+            <Grid item xs={8} sm={4}>
             <Button onClick={()=>{setLogin(true)}}  variant="outlined" color="primary" size="large" fullWidth sx={{marginTop:'2rem'}}>
                 create Account
             </Button>

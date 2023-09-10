@@ -12,8 +12,14 @@ import SessionManager from './Components/SessionsManager';
 import Profile from './Pages/profile';
 
 function App() {
+  if(document)
+    {
+      document.body.style.zoom = "75%";
+    }
 
   return (
+
+    
 
     <>
         <Box  sx={{ backgroundColor: 'white'}}>

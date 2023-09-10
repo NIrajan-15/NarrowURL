@@ -4,14 +4,13 @@ import UrlForm from '../Home/UrlForm';
 import { FaMapMarker } from 'react-icons/fa'; // Import icons as needed
 import QueryStatsIcon from '@mui/icons-material/QueryStats';
 import SaveIcon from '@mui/icons-material/Save';
-import { useNavigate } from 'react-router';
 
 const FirstPage = () => {
-  const navigate = useNavigate();
+  
   return (
     <Container>
       <Grid container justifyContent={'center'}>
-        <Grid item xs={12} sm={12} md={12} lg={12}>
+        <Grid item xs={12} sm={10} md={10} lg={12}>
           <Paper elevation={0} sx={{ paddingBottom: '10vh', borderRadius: '0px' }}>
             <Box sx={{ display: 'flex', justifyContent: 'center' }}>
               <UrlForm />
@@ -21,8 +20,7 @@ const FirstPage = () => {
         </Grid>
       </Grid>
       {/* Display grid with 3 boxes */}
-      <Typography variant="h4" width={'100%'} textAlign={'center'} paddingBottom={'40px'}>
-            Want More Features?
+      <Typography fontSize={'1.5rem'} width={'100%'} textAlign={'center'} paddingBottom={'40px'}>            Want More Features?
         </Typography>
       <Grid container spacing={3} justifyContent={'center'}>
         
