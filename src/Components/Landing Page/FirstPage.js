@@ -4,9 +4,10 @@ import UrlForm from '../Home/UrlForm';
 import { FaMapMarker } from 'react-icons/fa'; // Import icons as needed
 import QueryStatsIcon from '@mui/icons-material/QueryStats';
 import SaveIcon from '@mui/icons-material/Save';
+import { useNavigate } from 'react-router';
 
 const FirstPage = () => {
-  
+  const navigate = useNavigate();
   return (
     <Container>
       <Grid container justifyContent={'center'}>
@@ -48,11 +49,6 @@ const FirstPage = () => {
               Trace
             </Typography>
           </Box>
-        </Grid>
-        <Grid item xs={8} sm={3}>
-            <Button variant="outlined" color="primary" size="large" fullWidth sx={{marginTop:'2rem'}}>
-                create Account
-            </Button>
         </Grid>
       </Grid>
     </Container>
