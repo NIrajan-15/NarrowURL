@@ -21,7 +21,7 @@ const Device = () => {
   return (
     <>
       <Paper elevation={0}>
-        <Grid p={1} paddingTop={{xs:5, sm:5, md:5, lg:5 }} paddingBottom={{xs:5,sm:3, md:5, lg:3}} container spacing={2} justifyContent={'center'}>
+        <Grid p={1} paddingTop={{xs:5, sm:3, md:3, lg:3 }} paddingBottom={{xs:3,sm:3, md:2, lg:3}} container spacing={2} justifyContent={'center'}>
           {statsData.statsData.deviceCountData?.map(([name,value]) => (
             <Grid key={name} item xs={3}  marginTop={'-1vh'} sx={{borderStyle:'inset',borderWidth:'0.05px'}}>
               <Typography textAlign={'center'}>

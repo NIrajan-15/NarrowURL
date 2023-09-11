@@ -15,7 +15,7 @@ function App() {
   
   return (
     <>
-        <Box  sx={{ backgroundColor: 'white'}}>
+        <Box class='page-content'  sx={{ backgroundColor: 'white'}}>
         <SessionManager />
         <AuthProvider>
         <Routes>
