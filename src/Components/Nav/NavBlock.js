@@ -3,6 +3,7 @@ import {
     Toolbar, Typography, IconButton,
     Grid, Avatar, Menu, MenuItem, Drawer, Box
 } from '@mui/material';
+import LinkIcon from '@mui/icons-material/Link';
 import HomeIcon from '@mui/icons-material/Home';
 import BarChartIcon from '@mui/icons-material/BarChart';
 import MenuIcon from '@mui/icons-material/Menu'; // Import the MenuIcon
@@ -10,6 +11,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { getAuth, signOut } from "@firebase/auth";
 import { AuthContext } from '../Authentication/Auth';
+import logout from '../Authentication/Logout';
 
 const Navigation = () => {
     const [anchorEl, setAnchorEl] = useState(null);
@@ -40,16 +42,6 @@ const Navigation = () => {
         setDrawerOpen(open);
     };
 
-    const auth = getAuth();
-
-    // Handle user logout
-    const logout = async () => {
-        await signOut(auth).then(() => {
-            console.log("Logged out");
-            localStorage.clear();
-            navigate('/signup');
-        });
-    }
 
     // Access user data from AuthContext
     const { currentUser } = useContext(AuthContext);
@@ -58,7 +50,7 @@ const Navigation = () => {
     const drawerContent = (
         <Box sx={{ width: 300 }} justifyContent={'center'}>
             <Toolbar style={{ borderRadius: '0', backgroundColor: 'white' }}>
-                <Typography textAlign={'center'} variant="h6">NarrowURL</Typography>
+             <LinkIcon />  <Typography textAlign={'center'} variant="h6">NarrowURL</Typography>
             </Toolbar>
             <Box marginTop='40%'>
                 <Link to="/" onClick={toggleDrawer(true)} style={{ textDecoration: 'none', color: 'black' }}>
@@ -98,7 +90,8 @@ const Navigation = () => {
                         </Grid>
                         
                         <Grid item xs={9}>
-                            <Typography variant="h6" style={{ textAlign: 'center' }}>NarrowURL</Typography>
+                            
+                            <Typography variant="h6" onClick={()=>window.location.href='/'} style={{ textAlign: 'center' }}>NarrowURL</Typography>
                         </Grid>
                         
                         <Grid item xs={2} sm={1}>

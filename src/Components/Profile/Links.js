@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import {
   Paper,
   Typography,
@@ -21,26 +21,29 @@ import { useContext } from 'react';
 import { AuthContext } from '../Authentication/Auth';
 
 const UrlList = () => {
-  const userData = useContext(AuthContext).data;
-  const [urls, setUrls] = useState(
-    userData.reduce((unique, item) => {
-      const existingItem = unique.find((u) => u.name === item.name);
-      if (!existingItem) {
-        unique.push({
-          name: item.name,
-          shortUrl: item.shortUrl,
-          longUrl: item.longUrl,
-        });
-      }
-      return unique;
-    }, [])
-  );
+  
+  const [urls, setUrls] = useState([]);
+  const [searchQuery, setSearchQuery] = useState('');
 
-  const [searchQuery, setSearchQuery] = useState(''); // State for search query
-
-  const handleDeleteUrl = (urlId) => {
-    setUrls((prevUrls) => prevUrls.filter((url) => url.id !== urlId));
-  };
+  // Load data from local storage when the component mounts
+  useEffect(() => {
+    const userData = JSON.parse(localStorage.getItem('userData'));
+    if (userData) {
+      const uniqueUrls = userData.reduce((accumulator, item) => {
+        // Check if an item with the same name already exists in accumulator
+        const existingItem = accumulator.find((u) => u.name === item.name);
+        if (!existingItem) {
+          accumulator.push({
+            name: item.name,
+            shortUrl: item.shortUrl,
+            longUrl: item.longUrl,
+          });
+        }
+        return accumulator;
+      }, []);
+      setUrls(uniqueUrls);
+    }
+  }, []);
 
   const theme = createTheme({
     palette: {
@@ -130,15 +133,7 @@ const UrlList = () => {
                     </>
                   }
                 />
-                <ListItemSecondaryAction>
-                  <IconButton
-                    edge="end"
-                    aria-label="delete"
-                    onClick={() => handleDeleteUrl(url.id)}
-                  >
-                    <DeleteIcon />
-                  </IconButton>
-                </ListItemSecondaryAction>
+                
               </ListItem>
             ))}
         </List>

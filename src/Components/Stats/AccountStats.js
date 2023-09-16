@@ -17,7 +17,6 @@ const AccountStats = () => {
     const values = [totalClicks, totalUrls, totalCountries, totalDevices];
 
     const { statsData } = useStats();
-    console.log(statsData);
 
     useEffect(() => {
         setTotalClicks(statsData.clickCount);

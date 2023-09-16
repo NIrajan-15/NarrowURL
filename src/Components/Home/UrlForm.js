@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react';
-import {  Paper, Grid, TextField, Button, Typography } from '@mui/material';
+import {  Paper, Grid, TextField, Button, Typography, Box } from '@mui/material';
 import { AuthContext } from '../Authentication/Auth';
 import DoneOutlineIcon from '@mui/icons-material/DoneOutline';
 import ErrorIcon from '@mui/icons-material/Error';
@@ -9,14 +9,13 @@ import UrlResult from './UrlResult';
 const UrlForm = () => {
   // Access the current user from the authentication context
   const { currentUser } = useContext(AuthContext);
-
+  const[urlMessage, setUrlMessage] = useState('');
   // State variables for the component
   const [message, setMessage] = useState('');
   const [inputUrl, setInputUrl] = useState('');
   const [urlName, setUrlName] = useState('');
   const [validUrl, setValidUrl] = useState(true);
   const [shortlink, setShortlink] = useState('');
-  const [isCopied, setIsCopied] = useState(false);
   const[error, setError] = useState(true);
 
   // Function to handle URL validation
@@ -45,26 +44,43 @@ const UrlForm = () => {
 
   // Function to handle form submission
   const handleSubmit = () => {
-    // Generate a random shortlink
-    const short =
-      Math.random().toString(36).substring(2, 5) +
-      Math.random().toString(36).substring(2, 5);
+    let useremail = '';
+    
+    if(currentUser){
+      useremail = currentUser.email;
+    }
+    const api_url = process.env.REACT_APP_ADD_URL_API;
+    const data = fetch('https://oaem8s8cz8.execute-api.us-east-1.amazonaws.com/Dev/shortenUrl',{
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        "longUrl": inputUrl,
+        "name": urlName,
+        "useremail": useremail
+      }),
+    })
+    .then(res => res.json())
+    .then(data => {
+      setShortlink(data.shortUrl);
+      setUrlMessage(data.message);
+    }
+    )
 
-    // Set the shortlink
-    setShortlink('narrow-url.io/' + short);
-
-    // Reset copied state and clear any previous message
-    setIsCopied(false);
-    setMessage('');
   };
 
   const renderShortlinkSection = () => {
     if (!shortlink) return null;
 
-    return <UrlResult shortlink={shortlink} />;
+    return <UrlResult shortlink={ [shortlink,urlMessage] } />;
   };
 
   return (
+    <>
+    <Box height='100%'>
+
+    </Box>
     <Paper elevation={1} style={{ padding: '2%', width:'80%',maxWidth: '760px' }}>
       <Grid container spacing={2} justifyContent="center" alignItems="center">
     
@@ -110,6 +126,7 @@ const UrlForm = () => {
         </Grid>
       </Grid>
     </Paper>
+    </>
   );
 };
 

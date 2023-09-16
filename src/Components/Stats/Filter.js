@@ -21,12 +21,12 @@ export function useStats() {
 
 const StatsFilter = ({ children }) => {
 
-  const FullData = useContext(AuthContext).data;
+  const userData = Array.from(JSON.parse(localStorage.getItem('userData'))) || [];
 
   const dateOptions = ['1m', '6m', 'ytd', 'All'];
   const [selectedTime, setSelectedTime] = useState('All');
   const [selectedURL, setSelectedURL] = useState('All');
-  const [userData] = useState(FullData);
+  
   const [statsData, setStatsData] = useState([]);
   const [urlOptions, setUrlOptions] = useState([]);
   const [activeButton, setActiveButton] = useState('All');
@@ -68,7 +68,6 @@ const StatsFilter = ({ children }) => {
     });
 
     localStorage.setItem('urls', Array.from(urlsObjects));
-    console.log(Array.from(urlsObjects));
   };
 
   const createUrlOptions = () => {
@@ -91,11 +90,13 @@ const StatsFilter = ({ children }) => {
   }, []);
 
   useEffect(() => {
+
     const date = new Date();
     let month = date.getMonth();
     const time = Math.floor(new Date(date).getTime());
 
     let filteredData = userData;
+
     
     if (selectedURL !== 'All') {
       filteredData = filteredData.filter((click) => click.name === selectedURL);
@@ -107,13 +108,12 @@ const StatsFilter = ({ children }) => {
       const timeThreshold = time - month * 2629800000;
       filteredData = filteredData.filter((click) => click.date >= timeThreshold);
     }
-    console.log(JSON.stringify(filteredData));
     createStatData(filteredData);
     createUrlOptions();
-  }, [selectedTime, selectedURL, userData]);
+  }, [selectedTime, selectedURL]);
 
   return (
-    <StatsContext.Provider value={{ statsData, setStatsData, FullData }}>
+    <StatsContext.Provider value={{ statsData, setStatsData }}>
       <Box height='4vh' p={1} width='100%' marginTop={{ xs: '5vh', sm: '5vh' }}>
         <Grid container spacing={3} justifyContent="center" alignItems="center">
           <Grid item xs={1} paddingTop={'2vh'}>

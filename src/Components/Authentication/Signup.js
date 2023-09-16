@@ -59,8 +59,9 @@ function Signup() {
             await signInWithEmailAndPassword(auth, formData.email, formData.password)
                 .then((userCredential) => {
                     // Signed in 
-                    localStorage.setItem('currentUser', JSON.stringify(userCredential.user.currentUser));
+                    const user = userCredential.user;
                     navigate('/');
+
                 })
                 .catch((error) => {
                     switch (error.code) {
@@ -96,9 +97,8 @@ function Signup() {
                         displayName: formData.username
                     });
 
-                    localStorage.setItem('currentUser', JSON.stringify(userCredential.user.currentUser)); 
-
-                    navigate('/');
+                    setIsLogin(true);
+                    setIsSignup(false);
                 })
                 .catch((error) => {
                     switch (error.code) {
@@ -207,7 +207,7 @@ function Signup() {
                                 <hr></hr>
 
                                 {/* Display error message */}
-                                <Typography color="red" align='center' padding='3% 0% 3% 0%'>
+                                <Typography color="#f27787" align='center' padding='3% 0% 3% 0%'>
                                     {message}
                                 </Typography>
 

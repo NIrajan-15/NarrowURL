@@ -4,7 +4,7 @@ import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import QRCode from 'qrcode.react';
 
 
-const UrlResult = ({shortlink}) => {
+const UrlResult = ({shortlink,message}) => {
 
     const [isCopied, setIsCopied] = useState(false);
 
@@ -15,12 +15,12 @@ const UrlResult = ({shortlink}) => {
 
     return(
     <>
-    <Grid item xs={12}>
+    <Grid item xs={12} >
           <Typography sx={{ width: '95%', font: 'roboto' }} variant="h6" textAlign="center" p={2}>
-            Your Narrow URL is ready
+            {shortlink[1]}
           </Typography>
-          <Typography variant="h6" sx={{ borderStyle: 'inset', width: '95%' }} textAlign="center" p={2}>
-            {shortlink}
+          <Typography variant="h6" sx={{ borderStyle: 'inset' }} textAlign="center" p={2}>
+            {shortlink[0]}
             <Button
               variant="outlined"
               sx={{ width: '10%', marginLeft: '5%' }}

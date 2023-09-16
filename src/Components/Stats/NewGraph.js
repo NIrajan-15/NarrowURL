@@ -14,8 +14,6 @@ const AreaGraph = () => {
       }
   });
 
-  console.log(data);
-  
   const chartData = {
     series: [
       {
@@ -28,7 +26,7 @@ const AreaGraph = () => {
         type: 'area',
         zoomX: {
           enabled: true,
-          autoScaleYaxis: false,
+          autoScaleYaxis: true,
         },
         
         toolbar: {
@@ -53,6 +51,7 @@ const AreaGraph = () => {
       },
       yaxis: {
         min: 0,
+        max: 10,
       },
     
       tooltip: {
@@ -70,9 +69,6 @@ const AreaGraph = () => {
     
   };
 
-  
-
-  
   return (
     <Box id="chart">
       <Paper elevation={3} sx={{ padding: '20px', textAlign: 'center' }}>
