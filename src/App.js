@@ -1,3 +1,4 @@
+import React from 'react';
 import './App.css';
 import { Route, Routes } from 'react-router-dom';
 import LandingPage from './Pages/Landing';
@@ -6,18 +7,19 @@ import Stats from './Pages/Stats';
 import ProtectedRoute from './Components/Authentication/ProtectedRoute';
 import Navigation from './Components/Nav/NavBlock';
 import { AuthProvider } from './Components/Authentication/Auth';
-import React, { useEffect } from 'react';
 import { Box } from '@mui/material';
 import SessionManager from './Components/SessionsManager';
 import Profile from './Pages/profile';
-
+import Redirect from './Pages/Redirect';
 function App() {
   
   return (
     <>
-        <Box class='page-content'  sx={{ backgroundColor: 'white'}}>
-        <SessionManager />
+       
+        <Box className='page-content'   sx={{ backgroundColor: 'white'}}>
+        
         <AuthProvider>
+        
         <Routes>
           <Route  path="/signup" element={<LandingPage />} />
           <Route
@@ -31,12 +33,11 @@ function App() {
           <Route path='/profile' 
           element={<ProtectedRoute component={Profile} nav={Navigation} />}
           />
-          
+          <Route path='/:shortUrl' element={<Redirect />} />
         </Routes>
         </AuthProvider>
         </Box>
-        
-      
+
     </>
   );
 }

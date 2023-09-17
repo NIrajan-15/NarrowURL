@@ -2,6 +2,7 @@ import React, {useContext} from 'react';
 import { Navigate } from 'react-router-dom';
 import { AuthContext } from './Auth';
 import { Box } from '@mui/system';
+import sessionManager from '../SessionsManager';
 import  '../../App.css';
 
 const ProtectedRoute = ({component: Component, nav: Nav, ...rest}) => {
@@ -16,6 +17,7 @@ const ProtectedRoute = ({component: Component, nav: Nav, ...rest}) => {
         
             <Nav />
             <Box>
+            <sessionManager />
             <Component />
             </Box>
             

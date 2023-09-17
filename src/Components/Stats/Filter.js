@@ -1,7 +1,6 @@
 import React, { useState, useContext, createContext, useEffect } from 'react';
 import { Grid, Box, Button, MenuItem, Select, FormControl, InputLabel } from '@mui/material';
 import TuneIcon from '@mui/icons-material/Tune';
-import { AuthContext } from '../Authentication/Auth';
 
 
 
@@ -21,12 +20,12 @@ export function useStats() {
 
 const StatsFilter = ({ children }) => {
 
-  const FullData = useContext(AuthContext).data;
+  const userData = Array.from(JSON.parse(localStorage.getItem('userData'))) || [];
 
   const dateOptions = ['1m', '6m', 'ytd', 'All'];
   const [selectedTime, setSelectedTime] = useState('All');
   const [selectedURL, setSelectedURL] = useState('All');
-  const [userData] = useState(FullData);
+  
   const [statsData, setStatsData] = useState([]);
   const [urlOptions, setUrlOptions] = useState([]);
   const [activeButton, setActiveButton] = useState('All');
@@ -38,13 +37,8 @@ const StatsFilter = ({ children }) => {
     const urlsObjects = new Set();
     const countryCountData = new Map([['Country', 'Clicks']]);
     const deviceCountData = new Map([['Laptop',0],['Mobile',0],['Tablet',0],['Desktop',0]]);
-    var countryCount = 0;
-    var deviceCount = 0;
-
+    
     param.forEach((click) => {
-      // Count occurrences of countries
-      if(countryCountData.has(click.country)) countryCount++;
-      if(deviceCountData.has(click.device)) deviceCount++;
       
       countryCountData.set(click.country, (countryCountData.get(click.country) || 0) + 1);
       // Count occurrences of devices
@@ -57,8 +51,10 @@ const StatsFilter = ({ children }) => {
     });
 
     setStatsData({
-      countryCount: countryCount,
-      deviceCount: deviceCount, 
+      countryCount: new Set((countryCountData).keys()).size,
+      deviceCount: new Set((new Map(
+        [...deviceCountData].filter(([key, value]) => value !== 0)
+      )).keys()).size, 
       clickCount: param.length,
       urlCount: urls.size,
       clickDateData: Array.from(clickDateData).sort(),
@@ -68,7 +64,6 @@ const StatsFilter = ({ children }) => {
     });
 
     localStorage.setItem('urls', Array.from(urlsObjects));
-    console.log(Array.from(urlsObjects));
   };
 
   const createUrlOptions = () => {
@@ -91,11 +86,13 @@ const StatsFilter = ({ children }) => {
   }, []);
 
   useEffect(() => {
+
     const date = new Date();
     let month = date.getMonth();
     const time = Math.floor(new Date(date).getTime());
 
     let filteredData = userData;
+
     
     if (selectedURL !== 'All') {
       filteredData = filteredData.filter((click) => click.name === selectedURL);
@@ -107,13 +104,12 @@ const StatsFilter = ({ children }) => {
       const timeThreshold = time - month * 2629800000;
       filteredData = filteredData.filter((click) => click.date >= timeThreshold);
     }
-    console.log(JSON.stringify(filteredData));
     createStatData(filteredData);
     createUrlOptions();
-  }, [selectedTime, selectedURL, userData]);
+  }, [selectedTime, selectedURL]);
 
   return (
-    <StatsContext.Provider value={{ statsData, setStatsData, FullData }}>
+    <StatsContext.Provider value={{ statsData, setStatsData }}>
       <Box height='4vh' p={1} width='100%' marginTop={{ xs: '5vh', sm: '5vh' }}>
         <Grid container spacing={3} justifyContent="center" alignItems="center">
           <Grid item xs={1} paddingTop={'2vh'}>

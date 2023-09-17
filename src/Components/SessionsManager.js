@@ -1,46 +1,56 @@
-import  { useEffect } from 'react';
+import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import logout from '../Components/Authentication/Logout';
 
-const  SessionManager = () => {
-const navigate = useNavigate();
+const SessionManager = () => {
+  const navigate = useNavigate();
+
   useEffect(() => {
     // Define the session timeout duration (2 hours = 7200000 milliseconds)
-    const sessionTimeout = 7200000;
-
-    // Check if there's a last active timestamp in local storage
-    const lastActiveTimestamp = localStorage.getItem('lastActiveTimestamp');
-    const currentTime = Date.now();
+    const sessionTimeout = 3000;
     
-    // If there's no timestamp or the session has expired, log the user out
-    if (!lastActiveTimestamp || currentTime - lastActiveTimestamp > sessionTimeout) {
-      // You can implement logout logic here, e.g., redirect to the login page
-      alert('Your session has expired due to inactivity.');
-      // Clear local storage
-      localStorage.clear();
-    }
+    // Function to handle user activity and update the last active timestamp
+    const handleUserActivity = () => {
+      localStorage.setItem('lastActiveTimestamp', Date.now());
+    };
 
-    // Update the last active timestamp in local storage
-    localStorage.setItem('lastActiveTimestamp', currentTime.toString());
+    // Add event listeners to track user activity (e.g., mouse move or keydown)
+    window.addEventListener('mousemove', handleUserActivity);
+    window.addEventListener('keydown', handleUserActivity);
+    window.addEventListener('scroll', handleUserActivity);
+    window.addEventListener('click', handleUserActivity);
+
+
+    // Initialize the last active timestamp or get it from local storage
+    const lastActiveTimestamp = localStorage.getItem('lastActiveTimestamp');
+    
+
+    // If there's no timestamp or the session has expired, log the user out
+    if (!lastActiveTimestamp || Date.now() - lastActiveTimestamp > sessionTimeout) {
+      logout();
+    }
 
     // Set up a timer to check session expiration periodically (e.g., every minute)
     const sessionCheckInterval = setInterval(() => {
-      const currentTime = Date.now();
       const lastActiveTimestamp = localStorage.getItem('lastActiveTimestamp');
 
-      if (lastActiveTimestamp && currentTime - lastActiveTimestamp > sessionTimeout) {
+      if (lastActiveTimestamp && Date.now() - lastActiveTimestamp > sessionTimeout) {
         clearInterval(sessionCheckInterval);
         // You can implement logout logic here as well
         alert('Your session has expired due to inactivity.');
-        localStorage.clear();
-        navigate('/signup');
+        logout();
       }
-    }, 30000); // Check every half minute
+    }, 60000); // Check every minute
 
-    // Clean up the timer when the component unmounts
-    return () => clearInterval(sessionCheckInterval);
-  }, []);
+    // Clean up the event listeners and timer when the component unmounts
+    return () => {
+      window.removeEventListener('mousemove', handleUserActivity);
+      window.removeEventListener('keydown', handleUserActivity);
+      clearInterval(sessionCheckInterval);
+    };
+  }, [navigate]);
 
   return null; // This component doesn't render anything
-}
+};
 
 export default SessionManager;

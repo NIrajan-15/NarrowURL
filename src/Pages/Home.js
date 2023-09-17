@@ -11,7 +11,7 @@ const Home = () =>
             display: 'flex',
             justifyContent: 'center',
             alignItems: 'center',
-            height: '80vh',
+            height: '100vh',
         }}
     >
         <UrlForm />

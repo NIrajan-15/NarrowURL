@@ -5,8 +5,7 @@ import { AuthContext } from '../Authentication/Auth';
 const UserProfile = () => {
 
   // get currrnt user from AuthContext
-  const user = useContext(AuthContext).currentUser;
-
+  const user = JSON.parse(localStorage.getItem('currentUser')) || [];
   return (
     <Container maxWidth="sm">
       <Paper style={{ padding: '16px', marginBottom: '16px', textAlign: 'center' }}>
