@@ -1,7 +1,6 @@
 import React, { useState, useContext, createContext, useEffect } from 'react';
 import { Grid, Box, Button, MenuItem, Select, FormControl, InputLabel } from '@mui/material';
 import TuneIcon from '@mui/icons-material/Tune';
-import { AuthContext } from '../Authentication/Auth';
 
 
 
@@ -38,13 +37,8 @@ const StatsFilter = ({ children }) => {
     const urlsObjects = new Set();
     const countryCountData = new Map([['Country', 'Clicks']]);
     const deviceCountData = new Map([['Laptop',0],['Mobile',0],['Tablet',0],['Desktop',0]]);
-    var countryCount = 0;
-    var deviceCount = 0;
-
+    
     param.forEach((click) => {
-      // Count occurrences of countries
-      if(countryCountData.has(click.country)) countryCount++;
-      if(deviceCountData.has(click.device)) deviceCount++;
       
       countryCountData.set(click.country, (countryCountData.get(click.country) || 0) + 1);
       // Count occurrences of devices
@@ -57,8 +51,10 @@ const StatsFilter = ({ children }) => {
     });
 
     setStatsData({
-      countryCount: countryCount,
-      deviceCount: deviceCount, 
+      countryCount: new Set((countryCountData).keys()).size,
+      deviceCount: new Set((new Map(
+        [...deviceCountData].filter(([key, value]) => value !== 0)
+      )).keys()).size, 
       clickCount: param.length,
       urlCount: urls.size,
       clickDateData: Array.from(clickDateData).sort(),

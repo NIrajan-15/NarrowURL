@@ -5,8 +5,6 @@ import {
   List,
   ListItem,
   ListItemText,
-  ListItemSecondaryAction,
-  IconButton,
   Link,
   ThemeProvider,
   createTheme,
@@ -14,11 +12,9 @@ import {
   TextField,
   InputAdornment,
 } from '@mui/material';
-import DeleteIcon from '@mui/icons-material/Delete';
 import QRCode from 'qrcode.react';
 import SearchIcon from '@mui/icons-material/Search';
-import { useContext } from 'react';
-import { AuthContext } from '../Authentication/Auth';
+
 
 const UrlList = () => {
   

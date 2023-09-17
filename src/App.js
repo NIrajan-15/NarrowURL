@@ -17,7 +17,9 @@ function App() {
     <>
        
         <Box className='page-content'   sx={{ backgroundColor: 'white'}}>
+        
         <AuthProvider>
+        
         <Routes>
           <Route  path="/signup" element={<LandingPage />} />
           <Route

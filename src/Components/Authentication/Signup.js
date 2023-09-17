@@ -59,9 +59,8 @@ function Signup() {
             await signInWithEmailAndPassword(auth, formData.email, formData.password)
                 .then((userCredential) => {
                     // Signed in 
-                    const user = userCredential.user;
+                    localStorage.setItem('lastActiveTimestamp', Date.now());
                     navigate('/');
-
                 })
                 .catch((error) => {
                     switch (error.code) {

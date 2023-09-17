@@ -1,12 +1,13 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import logout from '../Components/Authentication/Logout';
 
 const SessionManager = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
     // Define the session timeout duration (2 hours = 7200000 milliseconds)
-    const sessionTimeout = 5000;
+    const sessionTimeout = 3000;
     
     // Function to handle user activity and update the last active timestamp
     const handleUserActivity = () => {
@@ -16,21 +17,17 @@ const SessionManager = () => {
     // Add event listeners to track user activity (e.g., mouse move or keydown)
     window.addEventListener('mousemove', handleUserActivity);
     window.addEventListener('keydown', handleUserActivity);
+    window.addEventListener('scroll', handleUserActivity);
+    window.addEventListener('click', handleUserActivity);
+
 
     // Initialize the last active timestamp or get it from local storage
     const lastActiveTimestamp = localStorage.getItem('lastActiveTimestamp');
     
-    // Function to log the user out
-    const logoutUser = () => {
-      // You can implement logout logic here, e.g., redirect to the login page
-      // Clear local storage
-      localStorage.clear();
-      navigate('/signup');
-    };
 
     // If there's no timestamp or the session has expired, log the user out
     if (!lastActiveTimestamp || Date.now() - lastActiveTimestamp > sessionTimeout) {
-      logoutUser();
+      logout();
     }
 
     // Set up a timer to check session expiration periodically (e.g., every minute)
@@ -41,7 +38,7 @@ const SessionManager = () => {
         clearInterval(sessionCheckInterval);
         // You can implement logout logic here as well
         alert('Your session has expired due to inactivity.');
-        logoutUser();
+        logout();
       }
     }, 60000); // Check every minute
 

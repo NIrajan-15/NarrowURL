@@ -18,12 +18,15 @@ const UrlRedirect = () => {
   else if (screenWidth <= 1024) deviceType = 'Tablet';
   else if (screenWidth <= 1366) deviceType = 'Laptop';
   else deviceType = 'Desktop';
+
+  const currentDate = new Date();
+  currentDate.setHours(0,0,0,0);
   
   // Initialize the URL data state
   const [urlData, setUrlData] = useState({
     shortUrl: shortUrl,
     country: '',
-    date: Math.floor(new Date().getTime()),
+    date: Math.floor(currentDate.getTime()),
     device: deviceType,
   });
 
@@ -36,7 +39,6 @@ const UrlRedirect = () => {
     justifyContent: 'center',
     alignItems: 'center',
     flexDirection: 'column', // Center content vertically and horizontally
-
   };
 
   
@@ -47,8 +49,9 @@ const UrlRedirect = () => {
         const data = await response.json();
         const updatedUrlData = { ...urlData, country: data.country };
         setUrlData(updatedUrlData);
-  
-        const postResponse = await fetch('https://oaem8s8cz8.execute-api.us-east-1.amazonaws.com/Dev/urlclicks', {
+        
+        const api_url = process.env.REACT_APP_SAVE_CLICK_DATA;
+        const postResponse = await fetch(api_url, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',

@@ -49,8 +49,9 @@ const UrlForm = () => {
     if(currentUser){
       useremail = currentUser.email;
     }
+    // api endpoint to save data when a short link is created
     const api_url = process.env.REACT_APP_ADD_URL_API;
-    const data = fetch('https://oaem8s8cz8.execute-api.us-east-1.amazonaws.com/Dev/shortenUrl',{
+    const data = fetch(api_url,{
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -70,6 +71,7 @@ const UrlForm = () => {
 
   };
 
+  // render the shortlink section when a shortlink is generated
   const renderShortlinkSection = () => {
     if (!shortlink) return null;
 
