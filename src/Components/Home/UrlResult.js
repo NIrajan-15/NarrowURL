@@ -8,8 +8,10 @@ const UrlResult = ({shortlink,message}) => {
 
     const [isCopied, setIsCopied] = useState(false);
 
+    const narrowLink = "https://nrwurl.tech/"+shortlink[0];
+
     const handleCopyToClipboard = () => {
-        navigator.clipboard.writeText(shortlink); // Copy the shortlink to the clipboard
+        navigator.clipboard.writeText(narrowLink); // Copy the shortlink to the clipboard
         setIsCopied(true); // Set copied state to true
         };
 
@@ -20,7 +22,7 @@ const UrlResult = ({shortlink,message}) => {
             {shortlink[1]}
           </Typography>
           <Typography variant="h6" sx={{ borderStyle: 'inset' }} textAlign="center" p={2}>
-            {shortlink[0]}
+             {"https://nrwurl.tech/"+shortlink[0]}
             <Button
               variant="outlined"
               sx={{ width: '10%', marginLeft: '5%' }}

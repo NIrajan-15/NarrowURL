@@ -7,9 +7,8 @@ import LinkIcon from '@mui/icons-material/Link';
 import HomeIcon from '@mui/icons-material/Home';
 import BarChartIcon from '@mui/icons-material/BarChart';
 import MenuIcon from '@mui/icons-material/Menu'; // Import the MenuIcon
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
-import { getAuth, signOut } from "@firebase/auth";
 import { AuthContext } from '../Authentication/Auth';
 import logout from '../Authentication/Logout';
 
@@ -22,13 +21,9 @@ const Navigation = () => {
         setAnchorEl(event.currentTarget);
     };
 
-    // Initialize React Router's navigation hook
-    const navigate = useNavigate();
-
     // Close the user menu
     const handleClose = () => {
         setAnchorEl(null);
-        navigate('/profile');
     };
 
     // Toggle the side drawer
@@ -108,7 +103,7 @@ const Navigation = () => {
                                 open={Boolean(anchorEl)}
                                 onClose={handleClose}
                             >
-                                <MenuItem onClick={handleClose}>Profile</MenuItem>
+                                <MenuItem onClick={()=>{window.location.href='/profile'}}>Profile</MenuItem>
                                 <MenuItem onClick={logout}>Logout</MenuItem>
                             </Menu>
                             </>

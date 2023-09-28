@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { Box, Button } from '@mui/material';
-import image404 from '../Images/404 page.gif';
+
 import Navigation from '../Components/Nav/NavBlock';
 
 const UrlRedirect = () => {
@@ -9,7 +9,7 @@ const UrlRedirect = () => {
   const { shortUrl } = useParams();
   const [message, setMessage] = useState('');
 
-  const navigate = useNavigate();
+
 
   // Determine the device type based on the screen width
   const screenWidth = window.innerWidth;
@@ -61,13 +61,17 @@ const UrlRedirect = () => {
   
         const postData = await postResponse.json();
         setMessage(postData.message);
-        console.log(updatedUrlData);
+        if (postData.message !== 'Not Found' && postData.longUrl) {
+          // Redirect to the longUrl
+          window.location.replace(postData.longUrl);
+        }
       } catch (error) {
         console.error('Error:', error);
       }
     };
   
     fetchCountry();
+    
   }, []);
   
   
@@ -90,10 +94,8 @@ const UrlRedirect = () => {
       (
       <>
       <h1>Redirecting...</h1>
-      
       </>
       )
-
     }
     </Box>
     </>

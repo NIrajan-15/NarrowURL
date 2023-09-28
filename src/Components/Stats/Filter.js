@@ -51,7 +51,7 @@ const StatsFilter = ({ children }) => {
     });
 
     setStatsData({
-      countryCount: new Set((countryCountData).keys()).size,
+      countryCount: new Set((countryCountData).keys()).size-1,
       deviceCount: new Set((new Map(
         [...deviceCountData].filter(([key, value]) => value !== 0)
       )).keys()).size, 
