@@ -27,7 +27,7 @@ const LandingPage = () => {
         {login ?
         (
             <Grid item lg={12}>
-            <Signup />
+                <Signup />
             </Grid>
         )
         :

@@ -141,10 +141,7 @@ function Signup() {
 
                             {/* Form for authentication */}
                             <form onSubmit={authenticate}>
-                                {/* Typography for the form title */}
-                                <Typography variant="h4" align='center' padding='5% 0% 5% 0%'>
-                                    {/* Title content */}
-                                </Typography>
+                                
 
                                 {/* Display username input for signup */}
                                 {isSignup &&

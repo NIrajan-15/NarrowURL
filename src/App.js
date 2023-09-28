@@ -8,7 +8,6 @@ import ProtectedRoute from './Components/Authentication/ProtectedRoute';
 import Navigation from './Components/Nav/NavBlock';
 import { AuthProvider } from './Components/Authentication/Auth';
 import { Box } from '@mui/material';
-import SessionManager from './Components/SessionsManager';
 import Profile from './Pages/profile';
 import Redirect from './Pages/Redirect';
 function App() {
@@ -16,7 +15,7 @@ function App() {
   return (
     <>
        
-        <Box className='page-content'   sx={{ backgroundColor: 'white'}}>
+        <Box className='page-content'>
         
         <AuthProvider>
         

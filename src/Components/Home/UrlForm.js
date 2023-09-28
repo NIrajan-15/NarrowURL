@@ -17,6 +17,7 @@ const UrlForm = () => {
   const [validUrl, setValidUrl] = useState(true);
   const [shortlink, setShortlink] = useState('');
   const[error, setError] = useState(true);
+  const [loading, setLoading] = useState(false);
 
   // Function to handle URL validation
   const handleValidate = (url) => {
@@ -44,6 +45,7 @@ const UrlForm = () => {
 
   // Function to handle form submission
   const handleSubmit = () => {
+    setLoading(true);
     let useremail = '';
     
     if(currentUser){
@@ -66,6 +68,7 @@ const UrlForm = () => {
     .then(data => {
       setShortlink(data.shortUrl);
       setUrlMessage(data.message);
+      setLoading(false);
     }
     )
 
@@ -117,6 +120,13 @@ const UrlForm = () => {
               )}
             </Typography>
           )}
+          {loading && (
+            <Typography width="100%" textAlign="center" p={2}>
+              Loading...
+            </Typography>
+          )
+          }
+          
         </Grid>
         {renderShortlinkSection()}
         <Grid item xs={12} md={6}>
